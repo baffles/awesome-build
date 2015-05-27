@@ -1,0 +1,15 @@
+{
+  "name": "BuildZone",
+  "version": "0.0.0",
+  "description": "BuildZone is a continuous integration, testing, and staging tool.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/baffles/buildzone.git"
+  },
+  "author": "Robert Ferris <baffles@gmail.com> (http://baf.zone/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/baffles/buildzone/issues"
+  },
+  "homepage": "https://github.com/baffles/buildzone"
+}
