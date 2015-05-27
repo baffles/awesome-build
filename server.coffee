@@ -23,6 +23,6 @@ app = express()
 (require './app/routes') app
 
 server = app.listen process.env.PORT or 3824, () ->
-	console.log "BuildZone started at #{server.address().address}:#{server.address().port}"
+	console.log "Awesome Build started at #{server.address().address}:#{server.address().port}"
 
 module.exports = app

@@ -6,7 +6,7 @@ autoPurge: true
 
 repository:
   type: git
-  url: git://github.com/baffles/buildzone.git
+  url: git://github.com/baffles/awesome-build.git
 
 triggers:
   - type: poll

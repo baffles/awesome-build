@@ -1,18 +1,18 @@
 {
-  "name": "BuildZone",
+  "name": "Awesome Build System",
   "version": "0.0.0",
-  "description": "BuildZone is a continuous integration, testing, and staging tool.",
+  "description": "Awesome Build System (ABS) is a continuous integration, testing, and staging tool.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/baffles/buildzone.git"
+    "url": "git://github.com/baffles/awesome-build.git"
   },
   "main": "server.coffee",
   "author": "Robert Ferris <baffles@gmail.com> (http://baf.zone/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/baffles/buildzone/issues"
+    "url": "https://github.com/baffles/awesome-build/issues"
   },
-  "homepage": "https://github.com/baffles/buildzone",
+  "homepage": "https://github.com/baffles/awesome-build",
   "dependencies": {
     "MD5": "^1.2.2",
     "async": "^1.0.0",
