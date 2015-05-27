@@ -1,0 +1,57 @@
+projectName: My Project
+dataDirectory: data/
+autoPurge: true
+
+# listen host/port
+
+repository:
+  type: git
+  url: git://github.com/baffles/buildzone.git
+
+triggers:
+  - type: poll
+    interval: 60s
+
+checker:
+  type: git-lsremote
+
+# all steps and runner settings below are global defaults. they may be overridden per-branch with a .buildzone.yaml in the root of the branch
+
+buildSteps:
+  - type: command
+    # path relative to root of repo
+    command: foo.sh
+
+testSteps:
+  - type: command
+    # path relative to root of repo
+    command: test.sh
+
+deploymentSteps:
+  - type: copy
+    # path relative to root of repo
+    glob: build/**
+  - type: rotateLogs
+    # path relative to root of deployment
+    folder: logs/
+  - type: command
+    condition: new
+    # path relative to root of deployment
+    command: setup.sh
+  - type: command
+    condition: existing
+    # path relative to root of deployment
+    command: update.sh
+
+dischargeSteps:
+  - type: command
+    # path relative to root of deployment
+    command: remove-database.sh
+
+runner:
+  type: command
+  # paths relative to root of deployment
+  start: start.sh
+  stop: stop.sh
+  checkState: check-state.sh
+  additionalLogs: logs/**/*.log

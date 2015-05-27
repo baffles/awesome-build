@@ -6,10 +6,20 @@
     "type": "git",
     "url": "git://github.com/baffles/buildzone.git"
   },
+  "main": "server.coffee",
   "author": "Robert Ferris <baffles@gmail.com> (http://baf.zone/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/baffles/buildzone/issues"
   },
-  "homepage": "https://github.com/baffles/buildzone"
+  "homepage": "https://github.com/baffles/buildzone",
+  "dependencies": {
+    "MD5": "^1.2.2",
+    "async": "^1.0.0",
+    "express": "^4.12.4",
+    "git-wrapper": "^0.1.1",
+    "js-yaml": "^3.3.1",
+    "mkdirp": "^0.5.1",
+    "mongoose": "^4.0.3"
+  }
 }
