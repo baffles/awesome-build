@@ -1,4 +1,4 @@
-# Repo adapter for git repositories
+# Repo provider for git repositories
 
 async = require 'async'
 Git = require 'git-wrapper'

@@ -1,6 +1,6 @@
 # API controller for repository actions
 
-repoManager = require '../system/repo-manager'
+{ repoManager } = require '../system'
 
 module.exports =
 	forcePoll: (req, res, next) ->

@@ -23,7 +23,7 @@ app.use (req, res, next) ->
 
 app.use bodyParser.json()
 
-(require './routes') app
+(require './router').init app
 
 server = app.listen config.get('system.port'), () ->
 	logger.info "Awesome Build started at #{server.address().address}:#{server.address().port}"

@@ -1,25 +1,27 @@
 # Manages local working copies of repositories
 
-logger = require '../logger'
+logger = require '../../logger'
 
 async = require 'async'
-md5 = require 'MD5'
 fs = require 'fs'
 path = require 'path'
 mkdirp = require 'mkdirp'
 
-Branch = require '../models/branch'
-Build = require '../models/build'
+Branch = require '../../models/branch'
+Build = require '../../models/build'
 
-class RepoManager
-	constructor: (@repo, @data) ->
+module.exports = class RepoManager
+	constructor: (repoType, repoConfig, @data) ->
 		logger.debug "ensuring #{@data} exists"
 		mkdirp.sync @data
+
+		impl = require "./impl/#{repoType}"
+		@repo = impl.init repoConfig
 
 	dir: (branch) -> path.join @data, branch.workFolder
 
 	### Polls the repository for branch changes ###
-	poll: (cb) ->
+	update: (cb) ->
 		@repo.getBranches (err, branches) =>
 			return cb err if err?
 
@@ -80,9 +82,3 @@ class RepoManager
 
 	doUpdate: (dir, cb) ->
 		@repo.updateLocalCopy dir, cb
-
-module.exports = do ->
-	config = require 'config'
-	repoType = require "./repo-types/#{config.get 'repository.type'}"
-	repo = repoType.init config.get 'repository'
-	new RepoManager repo, config.get 'system.dataDirectory'
