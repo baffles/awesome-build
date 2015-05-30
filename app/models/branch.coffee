@@ -43,7 +43,6 @@ BranchSchema.pre 'update', (next) ->
 
 BranchSchema.statics.creation = branchCreationBus.toEventStream()
 BranchSchema.statics.modification = branchModificationBus.toEventStream()
-#TODO: bus for build modifications (so we can tell when something goes from pending to skipped)
 
 BranchSchema.virtual('workFolder').get -> @_id
 
@@ -56,7 +55,10 @@ BranchSchema.statics.findOrCreate = (name, cb) ->
 		@create { name }, (err, branch) -> cb err, branch, true
 
 BranchSchema.statics.list = (options, cb) ->
-	criteria = options.criteria ? {}
-	@find(criteria).limit(options.perPage).skip(options.perPage * options.page).exec cb
+	queryOpts =
+		limit: options?.perPage
+		sort: name: -1
+	queryOpts.skip = options.perPage * options.page if options?.perPage? and options?.page?
+	@find().setOptions(queryOpts).exec cb
 
 module.exports = mongoose.model 'Branch', BranchSchema

@@ -81,4 +81,9 @@ BuildSchema.statics.list = (branch, options, cb) ->
 BuildSchema.statics.latest = (branch, cb) ->
 	@findOne { _branch: branch }, {}, { sort: creation: -1 }, cb
 
+BuildSchema.virtual('branch').get -> if @populated('_branch')? then @_branch
+BuildSchema.virtual('branchId').get -> @populated('_branch') ? @_branch
+
+BuildSchema.methods.populateBranch = (cb) -> @populate '_branch', cb
+
 module.exports = mongoose.model 'Build', BuildSchema
