@@ -1,6 +1,6 @@
 # Manages local working copies of repositories
 
-logger = require '../../config/logger'
+logger = require '../logger'
 
 async = require 'async'
 md5 = require 'MD5'
@@ -13,6 +13,7 @@ Build = require '../models/build'
 
 class RepoManager
 	constructor: (@repo, @data) ->
+		logger.debug "ensuring #{@data} exists"
 		mkdirp.sync @data
 
 	dir: (branch) -> path.join @data, branch.workFolder
@@ -81,6 +82,7 @@ class RepoManager
 		@repo.updateLocalCopy dir, cb
 
 module.exports = do ->
-	config = require '../../config/config'
-	repo = require '../../config/repo'
-	new RepoManager new RepoManager repo, config.dataDirectory
+	config = require 'config'
+	repoType = require "./repo-types/#{config.get 'repository.type'}"
+	repo = repoType.init config.get 'repository'
+	new RepoManager repo, config.get 'system.dataDirectory'

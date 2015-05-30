@@ -1,0 +1,3 @@
+system:
+  dataDirectory: data/
+  port: 3824

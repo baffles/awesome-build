@@ -1,6 +1,6 @@
 # Data model for tracking a branch
 
-logger = require '../../config/logger'
+logger = require '../logger'
 
 mongoose = require 'mongoose'
 async = require 'async'

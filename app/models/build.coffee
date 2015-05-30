@@ -1,6 +1,6 @@
 # Data model for tracking builds for branches
 
-logger = require '../../config/logger'
+logger = require '../logger'
 
 mongoose = require 'mongoose'
 async = require 'async'

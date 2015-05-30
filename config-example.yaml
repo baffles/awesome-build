@@ -1,8 +1,9 @@
-projectName: My Project
-dataDirectory: data/
-autoPurge: true
+project:
+  name: My Project
+  autoPurge: true
 
-# listen host/port
+system:
+  db: mongodb://localhost/awesome-build
 
 repository:
   type: git

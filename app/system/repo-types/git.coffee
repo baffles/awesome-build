@@ -1,13 +1,13 @@
 # Repo adapter for git repositories
 
 async = require 'async'
-Git = require('git-wrapper')
+Git = require 'git-wrapper'
 
 module.exports = class GitRepo
 	git = new Git
 
 	constructor: (@repo) ->
-		@id = repo
+		@id = @repo
 
 	@init: (config) -> new @ config.url
 
