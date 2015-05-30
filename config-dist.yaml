@@ -7,6 +7,7 @@ autoPurge: true
 repository:
   type: git
   url: git://github.com/baffles/awesome-build.git
+  # sshKey: blah
 
 triggers:
   - type: poll
