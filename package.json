@@ -1,5 +1,5 @@
 {
-  "name": "Awesome Build System",
+  "name": "awesome-build",
   "version": "0.0.0",
   "description": "Awesome Build System (ABS) is a continuous integration, testing, and staging tool.",
   "repository": {
@@ -20,6 +20,7 @@
     "git-wrapper": "^0.1.1",
     "js-yaml": "^3.3.1",
     "mkdirp": "^0.5.1",
-    "mongoose": "^4.0.3"
+    "mongoose": "^4.0.3",
+    "winston": "^1.0.0"
   }
 }
