@@ -5,17 +5,17 @@ express = require 'express'
 branch = require '../controllers/branch'
 router = express.Router()
 
-router.param 'branch-id', branch.load
+router.param 'branch', branch.loadById
 
 router.route('/')
 	.get(branch.list)
 
-router.route('/:branch-id')
+router.route('/:branch')
 	.get(branch.get)
 
-router.route('/:branch-id/state')
+router.route('/:branch/state')
 	.put(branch.setState)
 
-router.use '/builds', require './build'
+router.use '/:branch/build', require './build'
 
 module.exports = router

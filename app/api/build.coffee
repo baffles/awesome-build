@@ -5,7 +5,7 @@ express = require 'express'
 build = require '../controllers/build'
 router = express.Router()
 
-router.param 'build-id', build.load
+router.param 'build', build.loadByRevision
 
 router.route('/')
 	.get(build.list)
@@ -13,7 +13,7 @@ router.route('/')
 router.route('/latest')
 	.get(build.latest)
 
-router.route('/:build-id')
+router.route('/:build')
 	.get(build.get)
 
 module.exports = router

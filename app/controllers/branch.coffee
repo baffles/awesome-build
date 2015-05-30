@@ -5,8 +5,15 @@ Branch = require '../models/branch'
 async = require 'async'
 
 module.exports =
-	load: (req, res, next, id) ->
-		Branch.load id, (err, branch) ->
+	loadByName: (req, res, next, name) ->
+		Branch.find { name }, (err, branch) ->
+			return next err if err?
+			return next new Error('not found') if not branch?
+			req.branch = branch
+			next()
+
+	loadById: (req, res, next, id) ->
+		Branch.findById id, (err, branch) ->
 			return next err if err?
 			return next new Error('not found') if not branch?
 			req.branch = branch

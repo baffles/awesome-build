@@ -74,11 +74,11 @@ BuildSchema.statics.findOrCreate = (branch, revision, cb) ->
 BuildSchema.statics.list = (branch, options, cb) ->
 	queryOpts =
 		limit: options?.perPage
-		sort: created_at: -1
+		sort: creation: -1
 	queryOpts.skip = options.perPage * options.page if options?.perPage? and options?.page?
 	@find(_branch: branch).setOptions(queryOpts).exec cb
 
-BuildSchema.methods.latest = (branch, cb) ->
-	@findOne { _branch: branch }, {}, { sort: created_at: -1 }, cb
+BuildSchema.statics.latest = (branch, cb) ->
+	@findOne { _branch: branch }, {}, { sort: creation: -1 }, cb
 
 module.exports = mongoose.model 'Build', BuildSchema
