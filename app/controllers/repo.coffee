@@ -1,11 +1,6 @@
 # API controller for repository actions
 
-#TODO: centralize repomanager's instance somewhere
-repoManager = do ->
-	RepoManager = require '../system/repo-manager'
-	config = require '../../config/config'
-	repo = require '../../config/repo'
-	new RepoManager repo, config.dataDirectory
+repoManager = require '../system/repo-manager'
 
 module.exports =
 	forcePoll: (req, res, next) ->

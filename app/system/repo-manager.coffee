@@ -11,12 +11,10 @@ mkdirp = require 'mkdirp'
 Branch = require '../models/branch'
 Build = require '../models/build'
 
-module.exports = class RepoManager
+class RepoManager
 	constructor: (@repo, @data) ->
 		mkdirp.sync @data
 
-	#id: (branch) -> md5 "#{@repo.id}!!#{branch}"
-	#dir: (branch) -> path.join @data, @id branch
 	dir: (branch) -> path.join @data, branch.workFolder
 
 	### Polls the repository for branch changes ###
@@ -81,3 +79,8 @@ module.exports = class RepoManager
 
 	doUpdate: (dir, cb) ->
 		@repo.updateLocalCopy dir, cb
+
+module.exports = do ->
+	config = require '../../config/config'
+	repo = require '../../config/repo'
+	new RepoManager new RepoManager repo, config.dataDirectory
