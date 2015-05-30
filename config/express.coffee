@@ -3,6 +3,8 @@
 env = require './env'
 config = require './config'
 
+bodyParser = require 'body-parser'
+
 module.exports = (app) ->
 
 	# Setup Jade to render templates from app/views
@@ -14,3 +16,5 @@ module.exports = (app) ->
 		res.locals.env = env
 		res.locals.config = config
 		next()
+
+	app.use bodyParser.json()

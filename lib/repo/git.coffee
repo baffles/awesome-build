@@ -16,7 +16,7 @@ module.exports = class GitRepo
 		lines.pop() # last line will always be blank
 		lines.map (line) ->
 			[ref, branch] = line.split /\s+/, 2
-			branch: branch, ref: ref
+			branch: branch, head: ref
 
 	getBranches: (cb) ->
 		async.waterfall [

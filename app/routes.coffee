@@ -12,37 +12,8 @@ module.exports = (app) ->
 
 	api = express.Router()
 
-	# api.use some-api
-
-	## TEMP
-	do (repo = require '../config/repo') ->
-		# temporary direct interface to repo; this will be masked away later
-		config = require '../config/config'
-		fs = require 'fs'
-		path = require 'path'
-		RepoManager = require '../lib/repo/manager'
-		manager = new RepoManager repo, path.join config.dataDirectory, "repo"
-
-		api.get '/git-branches', (req, res) ->
-			console.log "poll branches"
-			repo.getBranches (err, branches) ->
-				return res.status(500).json err if err?
-				res.json branches
-
-		api.get '/git-update', (req, res) ->
-			branch = req.query.branch
-			dir = manager.dir branch
-			cb = (err, msg) ->
-				return res.status(500).json err if err?
-				res.send 'done'
-			# this should probably go in repo manager, isntead of having separate clone/update functions
-			if not fs.existsSync dir
-				console.log "clone #{branch}"
-				manager.clone branch, cb
-			else
-				console.log "update #{branch}"
-				manager.update branch, cb
-	## /TEMP
+	api.use '/branch', require './api/branch'
+	api.use '/repo', require './api/repo'
 
 	api.use (err, req, res, next) ->
 		return next() if is404 err
