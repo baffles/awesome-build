@@ -1,8 +1,10 @@
 # API controller for builds
 
+logger = require '../logger'
 Build = require '../models/build'
 
 async = require 'async'
+sse = require('express-sse-stream').sse
 
 module.exports =
 	loadByRevision: (req, res, next, revision) ->
@@ -33,3 +35,20 @@ module.exports =
 			res.json branches
 
 	get: (req, res) -> res.json req.build
+
+	stream: [
+		sse()
+		(req, res) ->
+			logger.debug "opening sse build stream for #{req.ip}"
+
+			branchFilter = (build) -> build.branchId.equals req.branch._id
+
+			subs = [
+				Build.creation.filter(branchFilter).onValue (build) -> req.sse.stream.write event: 'created', data: build
+				Build.modification.filter(branchFilter).onValue (build) -> req.sse.stream.write event: 'modified', data: build
+			]
+
+			req.sse.stream.on 'finish', ->
+				logger.debug "#{req.ip} disconnected from build stream"
+				unsub() for unsub in subs
+	]

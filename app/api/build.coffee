@@ -10,6 +10,9 @@ router.param 'build', build.loadByRevision
 router.route('/')
 	.get(build.list)
 
+router.route('/stream')
+	.get(build.stream)
+
 router.route('/latest')
 	.get(build.latest)
 

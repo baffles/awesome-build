@@ -10,6 +10,9 @@ router.param 'branch', branch.loadById
 router.route('/')
 	.get(branch.list)
 
+router.route('/stream')
+	.get(branch.stream)
+
 router.route('/:branch')
 	.get(branch.get)
 

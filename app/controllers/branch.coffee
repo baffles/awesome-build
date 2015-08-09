@@ -1,8 +1,10 @@
 # API controller for branches
 
+logger = require '../logger'
 Branch = require '../models/branch'
 
 async = require 'async'
+sse = require('express-sse-stream').sse
 
 module.exports =
 	loadByName: (req, res, next, name) ->
@@ -34,3 +36,18 @@ module.exports =
 		req.branch.save (err, branch) ->
 			return next err if err?
 			res.json branch
+
+	stream: [
+		sse()
+		(req, res) ->
+			logger.debug "opening sse branch stream for #{req.ip}"
+
+			subs = [
+				Branch.creation.onValue (branch) -> req.sse.stream.write event: 'created', data: branch
+				Branch.modification.onValue (branch) -> req.sse.stream.write event: 'modified', data: branch
+			]
+
+			req.sse.stream.on 'finish', ->
+				logger.debug "#{req.ip} disconnected from branch stream"
+				unsub() for unsub in subs
+	]
